@@ -1,0 +1,216 @@
+basePath: /v1
+definitions:
+  entity.Item:
+    properties:
+      name:
+        type: string
+      quantity:
+        type: integer
+      size:
+        type: string
+      unique_id:
+        type: string
+      warehouse_id:
+        type: integer
+    type: object
+  entity.Warehouse:
+    properties:
+      availability:
+        type: boolean
+      name:
+        type: string
+    type: object
+  v1.createWarehouseRequest:
+    properties:
+      warehouse:
+        $ref: '#/definitions/entity.Warehouse'
+    type: object
+  v1.itemsCreateRequest:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/entity.Item'
+        type: array
+    type: object
+  v1.reserveRequest:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
+  v1.response:
+    properties:
+      error:
+        example: message
+        type: string
+      message: {}
+      status:
+        type: integer
+      status_message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: WMS - Warehouses Management System
+  version: "1.0"
+paths:
+  /items:
+    put:
+      consumes:
+      - application/json
+      description: Create items in warehouse
+      operationId: createItem
+      parameters:
+      - description: items
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/v1.itemsCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Create items
+      tags:
+      - itmes
+  /items/{warehouse_id}/quantity:
+    get:
+      consumes:
+      - application/json
+      description: Count items in warehouse
+      operationId: getItemsQuantity
+      parameters:
+      - description: warehouse_id
+        in: path
+        name: warehouse_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Get items quantity
+      tags:
+      - itmes
+  /reserve:
+    delete:
+      consumes:
+      - application/json
+      description: Reserve items in warehouse
+      operationId: deleteReservation
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.reserveRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Delete Item Reservation
+      tags:
+      - reservation
+    post:
+      consumes:
+      - application/json
+      description: Reserve items in warehouse
+      operationId: reserve
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.reserveRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Reserve item
+      tags:
+      - reservation
+  /warehouses:
+    post:
+      consumes:
+      - application/json
+      description: Create warehouse by provided data
+      operationId: createWarehouse
+      parameters:
+      - description: warehouse
+        in: body
+        name: warehouse
+        required: true
+        schema:
+          $ref: '#/definitions/v1.createWarehouseRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Create warehouse
+      tags:
+      - warehouses
+swagger: "2.0"
