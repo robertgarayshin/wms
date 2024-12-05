@@ -1,5 +1,5 @@
 # WMS - Warehouses Management System
-
+## This isn't that bad feature
 Для запуска проекта:  
 ```
 git clone https://github.com/robertgarayshin/wms.git && cd wms
