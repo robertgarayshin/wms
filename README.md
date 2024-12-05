@@ -1,5 +1,5 @@
 # WMS - Warehouses Management System
-## THIS IS BAD FEATURE
+
 Для запуска проекта:  
 ```
 git clone https://github.com/robertgarayshin/wms.git && cd wms
