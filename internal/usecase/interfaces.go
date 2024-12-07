@@ -6,8 +6,7 @@ import (
 	"github.com/robertgarayshin/wms/internal/entity"
 )
 
-//go:generate mockgen -source=interfaces.go -destination=./mocks_test.go -package=usecase_test
-
+//go:generate mockgen -source=interfaces.go -destination=./mocks.go -package=usecase
 type (
 	// Items - интерфейс сервиса товаров. Позволяет создавать товары и обновлять их.
 	Items interface {

@@ -15,8 +15,8 @@ type ItemsUseCase struct {
 	itemsRepository ItemsRepo
 }
 
-func NewItemsUsecase(i ItemsRepo) ItemsUseCase {
-	return ItemsUseCase{
+func NewItemsUsecase(i ItemsRepo) Items {
+	return &ItemsUseCase{
 		itemsRepository: i,
 	}
 }

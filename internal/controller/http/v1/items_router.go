@@ -15,11 +15,11 @@ import (
 )
 
 type itemsAPIRouter struct {
-	items usecase.ItemsUseCase
+	items usecase.Items
 	l     logger.Interface
 }
 
-func newItemsAPIRoutes(handler *gin.RouterGroup, i usecase.ItemsUseCase, l logger.Interface) {
+func newItemsAPIRoutes(handler *gin.RouterGroup, i usecase.Items, l logger.Interface) {
 	items := &itemsAPIRouter{
 		items: i,
 		l:     l,

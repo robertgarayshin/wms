@@ -1,0 +1,6 @@
+tables:
+  warehouses:
+    - id: 0
+      name: unstored
+      is_available: true
+  items: []

@@ -1,0 +1,70 @@
+- name: "[POS] Запрос на создание склада"
+  description: |
+    КОГДА в запросе /warehouses/ переданы корректные данные склада
+    ДОЛЖЕН создаться новый склад
+    ДОЛЖЕН вернуться ответ со статусом 201 Created
+  method: PUT
+  path: /v1/items
+  headers:
+    Content-Type: application/json
+
+  fixtures:
+    - initial_db
+    - items_create_with_2_warehouses
+
+  variables:
+    item1_unique_code: "TEST0001"
+    item2_unique_code: "TEST0002"
+    item1_name: "TestItem1"
+    item2_name: "TestItem2"
+
+
+  request: |
+    {
+      "items":
+        [
+          {
+            "name": "{{ $item1_name }}",
+            "size": "Size M",
+            "unique_id": "{{ $item1_unique_code }}",
+            "quantity": 10,
+            "warehouse_id": 1
+          },
+          {
+            "name": "{{ $item2_name }}",
+            "size": "Size L",
+            "unique_id": "{{ $item2_unique_code }}",
+            "quantity": 5,
+            "warehouse_id": 2
+          }
+        ]
+    }
+
+  response:
+    201: >
+      {
+        "status":201,
+        "status_message":"Created",
+        "message":"items successfully created",
+        "error":null
+      }
+
+  dbChecks:
+    - dbQuery:
+        SELECT unique_code, name, size, quantity FROM items WHERE warehouse_id = 1
+      dbResponse:
+        - '{
+              "unique_code": "{{ $item1_unique_code }}",
+              "name": "{{ $item1_name }}",
+              "size": "Size M",
+              "quantity": 10
+          }'
+    - dbQuery:
+        SELECT unique_code, name, size, quantity FROM items WHERE warehouse_id = 2
+      dbResponse:
+        - '{
+              "unique_code": "{{ $item2_unique_code }}",
+              "name": "{{ $item2_name }}",
+              "size": "Size L",
+              "quantity": 5
+          }'

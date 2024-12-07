@@ -37,8 +37,8 @@ func (uc *ReservationsUsecase) CancelReservation(ctx context.Context, ids []stri
 	return nil
 }
 
-func NewReservationsUsecase(reservationsRepository ReservationsRepo) ReservationsUsecase {
-	return ReservationsUsecase{
+func NewReservationsUsecase(reservationsRepository ReservationsRepo) Reservations {
+	return &ReservationsUsecase{
 		reservationsRepository: reservationsRepository,
 	}
 }

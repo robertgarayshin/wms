@@ -20,3 +20,5 @@ create table items
 );
 
 INSERT INTO warehouses(id, name, is_available) VALUES (0, 'unstored', true)
+alter sequence warehouses_id_seq minvalue 0;
+alter sequence warehouses_id_seq start with 1;

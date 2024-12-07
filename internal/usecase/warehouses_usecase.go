@@ -21,8 +21,8 @@ func (w *WarehousesUsecase) WarehouseCreate(ctx context.Context, warehouse entit
 	return nil
 }
 
-func NewWarehousesUsecase(w WarehousesRepo) WarehousesUsecase {
-	return WarehousesUsecase{
+func NewWarehousesUsecase(w WarehousesRepo) Warehouse {
+	return &WarehousesUsecase{
 		warehousesRepository: w,
 	}
 }

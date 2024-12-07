@@ -1,0 +1,27 @@
+- name: "[NEG] Запрос на создание склада - некорректное тело запроса"
+  description: |
+    КОГДА в запросе /warehouses/ переданы некорректные данные склада
+    ДОЛЖНА вернуться ошибка
+    ДОЛЖЕН вернуться ответ со статусом 400 Bad Request
+  method: POST
+  path: /v1/warehouses/
+  headers:
+    Content-Type: application/json
+
+  request: |
+    {
+      "warehouse":
+        { 
+          "name":"Warehouse A" 
+          "availability": true
+        }
+    }
+
+  response:
+    400: >
+      {
+        "status":400,
+        "status_message":"Bad Request",
+        "message":null,
+        "error":"provided data is invalid"
+      }
