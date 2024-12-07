@@ -1,0 +1,43 @@
+- name: "[POS] Запрос на создание склада"
+  description: |
+    КОГДА в запросе /warehouses/ переданы корректные данные склада
+    ДОЛЖЕН создаться новый склад
+    ДОЛЖЕН вернуться ответ со статусом 201 Created
+  method: POST
+  path: /v1/warehouses/
+  headers:
+    Content-Type: application/json
+
+  fixtures:
+    - initial_db
+
+  variables:
+    warehouse_name: "Warehouse A"
+    warehouse_availability: "true"
+
+  request: |
+    {
+      "warehouse":
+        { 
+          "name":"{{ $warehouse_name }}", 
+          "availability": {{ $warehouse_availability }}
+        }
+    }
+
+  response:
+    201: >
+      {
+        "status":201,
+        "status_message":"Created",
+        "message":"warehouse created successfully",
+        "error":null
+      }
+
+  dbChecks:
+    - dbQuery:
+        SELECT name, is_available FROM warehouses where name = '{{ $warehouse_name }}'
+      dbResponse:
+        - '{
+              "name": "{{ $warehouse_name }}",
+              "is_available": {{ $warehouse_availability }}
+          }'

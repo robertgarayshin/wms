@@ -12,11 +12,11 @@ import (
 )
 
 type reservationsAPIRoutes struct {
-	reservations usecase.ReservationsUsecase
+	reservations usecase.Reservations
 	l            logger.Interface
 }
 
-func newReservationsAPIRoutes(handler *gin.RouterGroup, r usecase.ReservationsUsecase, l logger.Interface) {
+func newReservationsAPIRoutes(handler *gin.RouterGroup, r usecase.Reservations, l logger.Interface) {
 	res := &reservationsAPIRoutes{
 		reservations: r,
 		l:            l,
@@ -47,6 +47,8 @@ type reserveRequest struct {
 func (r *reservationsAPIRoutes) reserve(c *gin.Context) {
 	var req reserveRequest
 	if err := c.Bind(&req); err != nil {
+		errorResponse(c, http.StatusBadRequest, "invalid request")
+
 		return
 	}
 

@@ -22,9 +22,9 @@ import (
 func NewRouter(
 	handler *gin.Engine,
 	l logger.Interface,
-	i usecase.ItemsUseCase,
-	r usecase.ReservationsUsecase,
-	w usecase.WarehousesUsecase,
+	i usecase.Items,
+	r usecase.Reservations,
+	w usecase.Warehouse,
 ) {
 	// Опции хэндлера запросов
 	handler.Use(gin.Logger())

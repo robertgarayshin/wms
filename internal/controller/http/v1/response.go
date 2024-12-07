@@ -11,7 +11,7 @@ type response struct {
 	Status        int    `json:"status"`
 	StatusMessage string `json:"status_message"`
 	Message       any    `json:"message"`
-	Error         string `json:"error" example:"message"`
+	Error         any    `json:"error" example:"message"`
 }
 
 // errorResponse - возвращает ответ при наличии ошибки.

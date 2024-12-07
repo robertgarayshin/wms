@@ -1,0 +1,8 @@
+tables:
+  warehouses:
+    - id: 1
+      name: Warehouse A
+      is_available: true
+    - id: 2
+      name: Warehouse B
+      is_available: false

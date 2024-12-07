@@ -11,11 +11,11 @@ import (
 )
 
 type warehousesAPIRoutes struct {
-	warehouses usecase.WarehousesUsecase
+	warehouses usecase.Warehouse
 	l          logger.Interface
 }
 
-func newWarehousesAPIRoutes(handler *gin.RouterGroup, w usecase.WarehousesUsecase, l logger.Interface) {
+func newWarehousesAPIRoutes(handler *gin.RouterGroup, w usecase.Warehouse, l logger.Interface) {
 	r := &warehousesAPIRoutes{w, l}
 
 	h := handler.Group("/warehouses")
